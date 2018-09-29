@@ -84,3 +84,23 @@ The code below details how the subset (scenic & interior landmarks) was retrieve
 # landmarks.subset <- landmarks.subset[landmarks.subset$type != "Individual Landmark", ]
 # writeOGR(landmarks.subset, "./data/landmarks_subset.geojson", layer = "landmarks", driver = "GeoJSON")
 ```
+
+
+# Plot Leaflet Map 
+
+Elements of the Leaflet map include:
+
+* NYC counties as polygons
+* NYC bridges as polylines
+* NYC landmarks as circle markers (clustered)
+* A legend for variable colored circle markers
+* A layers control for basemaps and overlay groups
+
+```{r}
+leaflet() %>%
+  # Basemaps
+  addTiles(urlTemplate = "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", # Source: Class 10 app.R Example
+           attribution = "Google", group="Google Theme") %>%
+  addProviderTiles("CartoDB.DarkMatter", group = "Dark Theme") %>%
+  addProviderTiles("Stamen.TonerLite", group = "B&W Theme") %>%
+```
