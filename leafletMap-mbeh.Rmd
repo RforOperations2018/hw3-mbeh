@@ -26,7 +26,9 @@ require(tigris)
 options(tigris_use_cache = TRUE)
 ```
 
-# Load NYC County shapefiles (Polygons)
+# Load Geospatial Datasets
+
+## NYC County shapefiles (Polygons)
 
 ```{r}
 # Define state & counties to focus on for this homework
@@ -41,12 +43,44 @@ ny.counties <- ny.counties.load[ny.counties.load$NAME %in% county.names,]
 factpal <- colorFactor(brewer.pal(n = 11, name ="Spectral"), county.names)
 ```
 
-# Load NYC Bridge data (Lines)
+## NYC Bridge data (Lines)
 
 ```{r}
-roads.load <- readOGR("./data/geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436.shp", 
-                      layer = "geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436",
-                      GDAL1_integer64_policy = TRUE)
-roads.subset <- roads.load[roads.load@data$rw_type == 3, ]    # ID 3 represents bridges
-writeOGR(roads.subset, dsn="./data/", layer = "nyc_bridges", driver = "ESRI Shapefile")
+bridges.load <- readOGR("./data/nyc_bridges.shp", layer = "nyc_bridges")
+```
+
+Note: the above shapefile was cleaned from NYC roads dataset (119353 datapoints), to reduce loading times.
+The code below details how the bridge data was extracted from the original NYC roads dataset.
+*NB: The original roads dataset was >700MB in size and is not contained in the repository. See README.md for download instructions.*
+
+```{r}
+# roads.load <- readOGR("./data/geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436.shp",
+#                       layer = "geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436", 
+#                       GDAL1_integer64_policy = TRUE)
+# roads.subset <- roads.load[roads.load@data$rw_type == 3, ]    # ID 3 represents bridges
+# writeOGR(roads.subset, dsn="./data/", layer = "nyc_bridges", driver = "ESRI Shapefile")
+```
+
+## NYC Landmarks data (Points)
+
+```{r}
+landmarks.subset <- readOGR("./data/landmarks_subset.geojson") # 378 landmarks
+
+# Custom Palette for Landmarks
+landmark.types <- as.character(unique(landmarks.subset$type))
+landmark.palette <- colorFactor(c("#3182bd", "#636363"), landmark.types)
+```
+
+Note: the above GeoJSON file is a subset of the original NYC landmarks dataset (47790 datapoints), to reduce loading times.
+The code below details how the subset (scenic & interior landmarks) was retrieved and saved to the new geojson file.
+*NB: The original landmarks dataset was >30MB and is not contained in the repository. See README.md for download instructions.*
+
+```{r}
+# landmarks <- readOGR("./data/landmarks.geojson")
+# landmarks$type <- as.character(landmarks$lm_type)
+
+##### Subset landmarks data to show only scenic & interior landmarks
+# landmarks.subset <- landmarks[landmarks$type != "Historic District", ]
+# landmarks.subset <- landmarks.subset[landmarks.subset$type != "Individual Landmark", ]
+# writeOGR(landmarks.subset, "./data/landmarks_subset.geojson", layer = "landmarks", driver = "GeoJSON")
 ```
