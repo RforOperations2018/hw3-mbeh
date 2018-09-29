@@ -24,3 +24,9 @@ There is also a layer control function that allows toggling of these overlay gro
 ###  Datasets
 
 Sources:
+
+* NYC Counties polygons - pulled from `tigris` package
+* NYC Bridges polylines - subsetted from [NYC roads data](https://data.cityofnewyork.us/City-Government/NYC-Street-Centerline-CSCL-/exjm-f27b)
+* NYC Landmark points - subsetted from [NYC Individual Landmarks data](https://data.cityofnewyork.us/Housing-Development/Individual-Landmarks/ch5p-r223)
+
+The data links are all taken from NYC Open Data.
