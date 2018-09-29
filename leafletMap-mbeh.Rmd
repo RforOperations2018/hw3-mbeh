@@ -23,3 +23,18 @@ require(leaflet.extras)
 require(tigris)
 options(tigris_use_cache = TRUE)
 ```
+
+# Load NYC County shapefiles (Polygons)
+
+```{r}
+# Define state & counties to focus on for this homework
+state <- "New York"
+county.names <- c("New York", "Kings", "Queens", "Bronx", "Richmond")
+
+# Load & subset TIGER/Line shapefile data from Census Bureau
+ny.counties.load <- counties(state, cb = TRUE)
+ny.counties <- ny.counties.load[ny.counties.load$NAME %in% county.names,]
+
+# Custom Palette for NYC County Polygons
+factpal <- colorFactor(brewer.pal(n = 11, name ="Spectral"), county.names)
+```
