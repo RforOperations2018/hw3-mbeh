@@ -109,5 +109,15 @@ leaflet() %>%
               fillColor = ~factpal(NAME), 
               fillOpacity = 0.4, 
               color = 'black', 
-              weight = 2) 
+              weight = 2) %>%
+  
+  # Overlay map: bridges as polylines
+  addPolylines(data = bridges.load, color = "#4a1486", weight = 3, opacity = 1, group = "Bridges") %>%
+  
+  # Overlay map: landmarks as points / circle markers
+  addCircleMarkers(data = landmarks.subset, color = ~landmark.palette(type), # vary marker color based on landmark type
+                   clusterOptions = markerClusterOptions(),            # cluster markers if they are densely populated
+                   radius = 10, opacity = 1,                           # customize visual attributes
+                   popup = ~paste0("<b>Street</b>: ", pluto_addr, "<br><b>Landmark</b>: ", lm_name), # define popup text
+                   group = "Landmarks")
 ```
