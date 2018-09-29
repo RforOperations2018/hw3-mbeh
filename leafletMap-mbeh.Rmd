@@ -103,4 +103,11 @@ leaflet() %>%
            attribution = "Google", group="Google Theme") %>%
   addProviderTiles("CartoDB.DarkMatter", group = "Dark Theme") %>%
   addProviderTiles("Stamen.TonerLite", group = "B&W Theme") %>%
+  
+  # Overlay map: counties as polygons
+  addPolygons(data = ny.counties, group = "Counties",
+              fillColor = ~factpal(NAME), 
+              fillOpacity = 0.4, 
+              color = 'black', 
+              weight = 2) 
 ```
