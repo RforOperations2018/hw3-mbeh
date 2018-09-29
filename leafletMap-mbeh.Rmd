@@ -125,5 +125,13 @@ leaflet() %>%
   addLegend(position = "topright", pal = landmark.palette, # customize visual attributes
             values = landmarks.subset$type,                # define legend text
             group = "Landmarks", # same group as markers; disappears if unselected
-            title = "Landmark Type") 
+            title = "Landmark Type") %>%
+  
+  # Layers control
+  addLayersControl(
+    baseGroups = c("Google Theme", "Dark Theme", "B&W Theme"),
+    overlayGroups = c("Counties", "Landmarks", "Bridges"),
+    position = "bottomright",
+    options = layersControlOptions(collapsed = FALSE)
+  )
 ```
