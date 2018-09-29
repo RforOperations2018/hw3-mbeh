@@ -9,7 +9,8 @@ output: html_document
 
 You might need to first install the `Tigris` package, which will be used to load Census shapefiles for NYC Counties.
 
-```{r include=False}
+```{r include=FALSE}
+# I'm guessing you use PC, but these need to be in all caps
 # install.packages("tigris")
 ```
 
@@ -17,7 +18,7 @@ You might need to first install the `Tigris` package, which will be used to load
 
 The package dependencies for this homework are listed below.
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 require(RColorBrewer)
 require(rgdal)
 require(leaflet)
