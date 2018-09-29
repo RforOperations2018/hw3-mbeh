@@ -9,11 +9,13 @@ output: html_document
 
 You might need to first install the `Tigris` package, which will be used to load Census shapefiles for NYC Counties.
 
-```{r}
+```{r include=False}
 # install.packages("tigris")
 ```
 
 # Setup: Import Packages
+
+The package dependencies for this homework are listed below.
 
 ```{r setup, include=FALSE}
 require(RColorBrewer)
@@ -37,4 +39,14 @@ ny.counties <- ny.counties.load[ny.counties.load$NAME %in% county.names,]
 
 # Custom Palette for NYC County Polygons
 factpal <- colorFactor(brewer.pal(n = 11, name ="Spectral"), county.names)
+```
+
+# Load NYC Bridge data (Lines)
+
+```{r}
+roads.load <- readOGR("./data/geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436.shp", 
+                      layer = "geo_export_6090a65b-3a0c-49e0-b3b1-4953105ee436",
+                      GDAL1_integer64_policy = TRUE)
+roads.subset <- roads.load[roads.load@data$rw_type == 3, ]    # ID 3 represents bridges
+writeOGR(roads.subset, dsn="./data/", layer = "nyc_bridges", driver = "ESRI Shapefile")
 ```
