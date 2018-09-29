@@ -119,5 +119,11 @@ leaflet() %>%
                    clusterOptions = markerClusterOptions(),            # cluster markers if they are densely populated
                    radius = 10, opacity = 1,                           # customize visual attributes
                    popup = ~paste0("<b>Street</b>: ", pluto_addr, "<br><b>Landmark</b>: ", lm_name), # define popup text
-                   group = "Landmarks")
+                   group = "Landmarks") %>%
+  
+  # Legend for circle markers
+  addLegend(position = "topright", pal = landmark.palette, # customize visual attributes
+            values = landmarks.subset$type,                # define legend text
+            group = "Landmarks", # same group as markers; disappears if unselected
+            title = "Landmark Type") 
 ```
